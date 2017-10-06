@@ -29,3 +29,9 @@ kadira:flow-router
 kadira:blaze-layout
 zimme:active-route
 dynamic-import
+ecmascript
+accounts-ui
+accounts-password
+accounts-facebook
+accounts-google
+service-configuration

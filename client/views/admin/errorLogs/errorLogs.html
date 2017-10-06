@@ -1,0 +1,37 @@
+<template name="errorLogsData">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Error logs
+                <span class="badge">{{errorLogsCount}}</span>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table error-logs">
+                <thead>
+                <tr>
+                    <th>Error</th>
+                    <th>Type</th>
+                    <th>Reason</th>
+                    <th>Updated at</th>
+                    <th>Show</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{> pages}}
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer">{{> pagesNav}}</div>
+    </div>
+</template>
+
+<template name="errorLogsDataItem">
+    <tr>
+        <td>{{error}}</td>
+        <td>{{errorType}}</td>
+        <td>{{reason}}</td>
+        <td>{{formatDate updatedAt 'long'}}</td>
+        <td><a href="errors/{{_id}}" class="label label-{{#if fixed}}success{{else}}danger{{/if}}">More info</a></td>
+    </tr>
+</template>

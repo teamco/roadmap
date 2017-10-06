@@ -7,12 +7,12 @@ FlowRouter.route('/', {
 
 FlowRouter.route('/pageOne', {
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "pageOne"});
+        BlazeLayout.render("adminLayout", {content: "pageOne"});
     }
 });
 
 FlowRouter.route('/pageTwo', {
     action: function() {
-        BlazeLayout.render("mainLayout", {content: "pageTwo"});
+        BlazeLayout.render("adminLayout", {content: "pageTwo"});
     }
 });
