@@ -18,13 +18,6 @@ FlowRouter.route('/pageTwo', {
   }
 });
 
-FlowRouter.route('/dashboard', {
-  action: function() {
-    BlazeLayout.render('adminLayout', {content: 'pageTwo'});
-  },
-  name: 'dashboard'
-});
-
 
 /**
  * @method updateUserLog

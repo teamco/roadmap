@@ -1,43 +1,53 @@
-// Router.route('/setting', function () {
+// FlowRouter.route('/dashboard', function () {
 //     this.render('adminDashboard');
 // });
 //
-// Router.route('/setting/users', function () {
+// FlowRouter.route('/dashboard/users', function () {
 //     this.render('userData');
-// }, {name: 'setting.users'});
+// }, {name: 'dashboard.users'});
 //
-// Router.route('/setting/logs', function () {
-//     this.render('userLogsData');
-// }, {name: 'user.logs'});
 //
-// Router.route('/setting/logs/:logId', function () {
-//     this.render('userLogData');
-// });
-//
-// Router.route('/setting/users/:userId/logs', function () {
-//     this.render('userLogsData');
-// });
-//
-// Router.route('/setting/users/:userId/logs/:logId', function () {
-//     this.render('userLogData');
-// });
-//
-// Router.route('/setting/errors', function () {
+// FlowRouter.route('/dashboard/errors', function () {
 //     this.render('errorLogsData');
 // }, {name: 'error.logs'});
 //
-// Router.route('/setting/errors/:errorId', function () {
+// FlowRouter.route('/dashboard/errors/:errorId', function () {
 //     this.render('errorLogData');
 // });
 //
-// Router.route('/setting/users/:userId/errors', function () {
+// FlowRouter.route('/dashboard/users/:userId/errors', function () {
 //     this.render('errorLogsData');
 // });
 //
-// Router.route('/setting/users/:userId/errors/:errorId', function () {
+// FlowRouter.route('/dashboard/users/:userId/errors/:errorId', function () {
 //     this.render('errorLogData');
 // });
 //
-// Router.route('/setting/users/:userId', function () {
+// FlowRouter.route('/dashboard/users/:userId', function () {
 //     this.render('editUser');
 // });
+
+FlowRouter.route('/dashboard', {
+  action: () => BlazeLayout.render('adminLayout', {content: 'adminDashboard'}),
+  name: 'dashboard'
+});
+
+FlowRouter.route('/dashboard/logs', {
+  action: () => BlazeLayout.render('adminLayout', {content: 'userLogsData'}),
+  name: 'userLog'
+});
+
+FlowRouter.route('/dashboard/logs/:logId', {
+  action: () => BlazeLayout.render('adminLayout', {content: 'userLogData'}),
+  name: 'userLog'
+});
+
+FlowRouter.route('/dashboard/users/:userId/logs', {
+  action: () => BlazeLayout.render('adminLayout', {content: 'userLogsData'}),
+  name: 'userLog'
+});
+
+FlowRouter.route('/dashboard/users/:userId/logs/:logId', {
+  action: () => BlazeLayout.render('adminLayout', {content: 'userLogData'}),
+  name: 'userLog'
+});

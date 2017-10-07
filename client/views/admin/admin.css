@@ -2,3 +2,7 @@
 #login-name-link {
     display: flex;
 }
+
+span.label {
+    margin-right: 10px;
+}
