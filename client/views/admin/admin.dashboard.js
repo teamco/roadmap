@@ -15,11 +15,11 @@ function logUrl(type) {
 }
 
 Template.userLogs.helpers({
-    userLogsCount: function () {
-        var user = isUserLogs();
+    userLogsCount: () => {
+        const user = isUserLogs();
         return user ?
-            UserLog.find({userId: user._id}).count() :
-            UserLog.find().count();
+            userLog.find({userId: user._id}).count() :
+            userLog.find().count();
     },
 
     userLogsUrl: function () {
@@ -39,7 +39,7 @@ Template.errorLogs.helpers({
                 return ErrorLog.find({
                     userLogId: {
                         $in: _.map(
-                            UserLog.find({userId: user._id}).fetch(),
+                            userLog.find({userId: user._id}).fetch(),
                             function (log) {
                                 return log._id;
                             }

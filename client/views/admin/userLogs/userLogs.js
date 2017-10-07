@@ -6,10 +6,10 @@ var sharedMethods = {
         return //Router.current().params.logId;
     },
     userLog: function () {
-        return UserLog.find(sharedMethods.logId()).fetch()[0];
+        return userLog.find(sharedMethods.logId()).fetch()[0];
     },
     isError: function (logId) {
-        return ErrorLog.findOne({userLogId: sharedMethods.logId() || logId});
+        //return ErrorLog.findOne({userLogId: sharedMethods.logId() || logId});
     }
 };
 

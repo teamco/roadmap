@@ -12,5 +12,9 @@
     "javascript_origins": [
       "http://localhost:3000"
     ]
+  },
+  "facebook": {
+    "app_id": "183292658884344",
+    "app_secret": "7abb977c517cf0d86c0e3cc30306ea0c"
   }
 }

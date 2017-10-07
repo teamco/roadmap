@@ -1,7 +1,7 @@
 function _filterByUser(user) {
 
     return _.map(
-        UserLog.find({userId: user._id}).fetch(),
+        userLog.find({userId: user._id}).fetch(),
         function (log) {
             return log._id;
         }
@@ -18,7 +18,7 @@ function _getErrorData(errorId) {
 
     if (user && user._id) {
 
-        error = ErrorLog.findOne({
+        error = errorLog.findOne({
             _id: errorId,
             userLogId: {
                 $in: _filterByUser(user)
