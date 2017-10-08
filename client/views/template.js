@@ -2,6 +2,19 @@ import {runTemplateHelper} from '../../lib/utils';
 import {pageTitle} from '../../lib/utils';
 import {templateName} from '../../lib/utils';
 
+/**
+ * @method subscribe
+ * @param models
+ */
+export const subscribe = modules => {
+  if (typeof modules === 'string') {
+    modules = [modules];
+  }
+  for (let i = 0; i < modules.length; i++) {
+    Meteor.subscribe(modules[i]);
+  }
+};
+
 Template.registerHelper('formatDate', (date, format) => {
   if (format === 'long') format = 'MMMM DD, YYYY H:mm:ss';
   if (format === 'short') format = 'MM-DD-YYYY H:mm:ss';

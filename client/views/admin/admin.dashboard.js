@@ -1,13 +1,23 @@
 import {isUserLogs} from '../../../lib/utils';
+import {subscribe} from '../template';
 import {userLog} from '../../../model/userLog.model';
+import {errorLog} from '../../../model/errorLog.model';
 
-Template.usersDashboard.helpers({
-  registeredUsers: function() {
-    return Accounts.users.find().count();
-  },
-  onlineUsers: function() {
-    return Accounts.users.find({'status.online': true}).count();
-  }
+Template.adminDashboard.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
+Template.usersManagement.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
+Template.errorLogs.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
+
+Template.usersManagement.helpers({
+
+  /**
+   * @method registeredUsers
+   */
+  registeredUsers: () => Accounts.users.find().count(),
+
+  /**
+   * @method onlineUsers
+   */
+  onlineUsers: () => Accounts.users.find({'status.online': true}).count()
 });
 
 /**
@@ -42,36 +52,31 @@ Template.userLogs.helpers({
 });
 
 Template.errorLogs.helpers({
-  errorLogsCount: function() {
 
-    var user = isUserLogs();
-
-    if (user) {
-
-      if (user._id) {
-
-        return ErrorLog.find({
-          userLogId: {
-            $in: _.map(
-                userLog.find({userId: user._id}).fetch(),
-                function(log) {
-                  return log._id;
-                }
-            )
-          }
-        }).count();
-      }
+  /**
+   * @method errorLogsCount
+   * @returns {any}
+   */
+  errorLogsCount: () => {
+    const user = isUserLogs();
+    if (user && user._id) {
+      return errorLog.find({
+        userLogId: {
+          $in: _.map(
+              userLog.find({userId: user._id}).fetch(),
+              function(log) {
+                return log._id;
+              }
+          )
+        }
+      }).count();
     }
 
-    return ErrorLog.find().count();
+    return errorLog.find().count();
   },
 
-  errorLogsUrl: function() {
-    return _logUrl('/errors');
-  }
+  /**
+   * @method errorLogsUrl
+   */
+  errorLogsUrl: () => _logUrl('/errors')
 });
-
-Meteor.subscribe('users');
-Meteor.subscribe('userStatus');
-Meteor.subscribe('userLogs');
-// Meteor.subscribe('errorLogs');

@@ -1,15 +1,21 @@
 import {userLog} from '../../model/userLog.model';
 
 Meteor.methods({
-  updateUserLog: function(url) {
 
-    const connection = this.connection,
-        headers = connection.httpHeaders;
+  /**
+   * @method updateUserLog
+   * @param url
+   * @returns {*}
+   */
+  updateUserLog: url => {
 
-    if ((url || '').match(/logs/)) {
+    const connection = this.connection;
+
+    if ((url || '').match(/logs/) || !connection) {
       return false;
     }
 
+    const headers = connection.httpHeaders;
     const log = {
       userId: this.userId,
       createdAt: new Date(),
