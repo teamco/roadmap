@@ -1,3 +1,4 @@
+import {subscribe} from '../../template';
 import {sharedMethods, HEADS} from './userLogs';
 
 Template.userLogData.helpers({
@@ -10,6 +11,4 @@ Template.userLogData.helpers({
   xForwardedFor: () => sharedMethods.userLog().httpHeaders['x-forwarded-for']
 });
 
-Template.userLogData.onCreated(() => {
-  Meteor.subscribe('userLogs');
-});
+Template.userLogData.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));

@@ -1,20 +1,5 @@
 <template name="links">
-    <li class="{{isActivePath path='/dashboard'}}">
-        <a href="/dashboard">
-            <i class="fa fa-cogs"></i>
-            <span class="nav-label">Dashboard</span>
-        </a>
-    </li>
-    <li class="{{isActivePath regex='logs'}}">
-        <a href="/dashboard/logs">
-            <i class="fa fa-list"></i>
-            <span class="nav-label">User logs</span>
-        </a>
-    </li>
-    <li class="{{isActivePath regex='errors'}}">
-        <a href="/dashboard/errors">
-            <i class="fa fa-exclamation-circle"></i>
-            <span class="nav-label">Error logs</span>
-        </a>
-    </li>
+    {{> menuLink path='/dashboard' icon='cogs' label='Dashboard'}}
+    {{> menuLink path='/dashboard/logs' icon='list' label='User logs'}}
+    {{> menuLink path='/dashboard/errors' icon='exclamation-circle' label='Error logs'}}
 </template>

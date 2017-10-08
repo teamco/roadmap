@@ -22,8 +22,6 @@ export const sharedMethods = {
  */
 export const HEADS = ['User action', 'IP', 'Created at', 'Show'];
 
-Template.userLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
-
 Template.userLogsData.onCreated(() => {
   subscribe(['users', 'userLogs', 'errorLogs']);
   const user = isUserLogs();
@@ -36,11 +34,17 @@ Template.userLogsData.onCreated(() => {
   }
 });
 
+Template.userLink.helpers({
+  logOwnerEmail: sharedMethods.logOwnerEmail
+});
+
 Template.userLogsData.helpers({
   getHeads: HEADS,
   isError: sharedMethods.isError,
   userLogsCount: () => runTemplateHelper(Template.userLogs, 'userLogsCount')
 });
+
+Template.userLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
 
 Template.userLogsDataItem.helpers({
   style: id => sharedMethods.isError(id) ? 'danger' : 'info',

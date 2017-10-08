@@ -12,19 +12,13 @@
                 <tbody>
                 <tr>
                     <td>
-                        <p>
-                            <a href="/dashboard/users/{{userLog.userId}}">
-                                <span class="label">{{logOwnerEmail userLog.userId}}</span>
-                            </a>
-                        </p>
+                        <p>{{> userLink userId=userLog.userId}}</p>
                         <p><a href="{{userLog.url}}">{{userLog.url}}</a></p>
                     </td>
                     <td>{{userLog.clientAddress}}</td>
                     <td>{{formatDate userLog.createdAt 'long'}}</td>
                     <td>
-                        {{#if isError}}
-                            <a href="/dashboard/errors/{{isError._id}}" class="label label-danger">Error log</a>
-                        {{/if}}
+                        {{> errorLogLink isError=isError}}
                         {{> backTo}}
                     </td>
                 </tr>

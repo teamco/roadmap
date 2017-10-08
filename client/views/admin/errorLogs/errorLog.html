@@ -16,9 +16,7 @@
                     <td>{{errorLog.reason}}</td>
                     <td>{{formatDate errorLog.updatedAt 'long'}}</td>
                     <td>
-                        {{#if errorLog.userLogId}}
-                            <a href="/dashboard/logs/{{errorLog.userLogId}}" class="label label-default">User log</a>
-                        {{/if}}
+                        {{> userLogLink userLogId=errorLog.userLogId}}
                         <a data-type="error" class="label label-{{style errorLog.fixed}}">Fix error</a>
                         {{> backTo}}
                     </td>
