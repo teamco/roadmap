@@ -4,10 +4,9 @@
             <table class="table user-logs">
                 <thead>
                 <tr>
-                    <th>User action</th>
-                    <th>IP</th>
-                    <th>Created at</th>
-                    <th>Show</th>
+                    {{#each getHeads}}
+                        <th>{{this}}</th>
+                    {{/each}}
                 </tr>
                 </thead>
                 <tbody>
@@ -26,7 +25,7 @@
                         {{#if isError}}
                             <a href="/dashboard/errors/{{isError._id}}" class="label label-danger">Error log</a>
                         {{/if}}
-                        <a href="/dashboard/logs" class="label label-info">Back</a>
+                        {{> backTo}}
                     </td>
                 </tr>
                 <tr>

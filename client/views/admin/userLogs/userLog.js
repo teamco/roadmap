@@ -1,6 +1,7 @@
-import {sharedMethods} from './userLogs';
+import {sharedMethods, HEADS} from './userLogs';
 
 Template.userLogData.helpers({
+  getHeads: HEADS,
   logOwnerEmail: sharedMethods.logOwnerEmail,
   isError: sharedMethods.isError,
   userLog: () => sharedMethods.userLog(),

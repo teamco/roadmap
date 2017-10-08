@@ -1,20 +1,20 @@
 <template name="links">
-    <li class="{{isActivePath regex='pageOne'}}">
-        <a href="/pageOne">
-            <i class="fa fa-dashboard"></i>
-            <span class="nav-label">Page one</span>
-        </a>
-    </li>
-    <li class="{{isActivePath regex='pageTwo'}}">
-        <a href="/pageTwo">
-            <i class="fa fa-diamond"></i>
-            <span class="nav-label">Page two</span>
-        </a>
-    </li>
-    <li class="{{isActivePath regex='dashboard'}}">
+    <li class="{{isActivePath path='/dashboard'}}">
         <a href="/dashboard">
-            <i class="fa fa-diamond"></i>
+            <i class="fa fa-cogs"></i>
             <span class="nav-label">Dashboard</span>
+        </a>
+    </li>
+    <li class="{{isActivePath regex='logs'}}">
+        <a href="/dashboard/logs">
+            <i class="fa fa-list"></i>
+            <span class="nav-label">User logs</span>
+        </a>
+    </li>
+    <li class="{{isActivePath regex='errors'}}">
+        <a href="/dashboard/errors">
+            <i class="fa fa-exclamation-circle"></i>
+            <span class="nav-label">Error logs</span>
         </a>
     </li>
 </template>

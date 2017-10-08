@@ -4,11 +4,9 @@
             <table class="table error-logs">
                 <thead>
                 <tr>
-                    <th>Error</th>
-                    <th>Type</th>
-                    <th>Reason</th>
-                    <th>Updated at</th>
-                    <th>Show</th>
+                    {{#each getHeads}}
+                        <th>{{this}}</th>
+                    {{/each}}
                 </tr>
                 </thead>
                 <tbody>
@@ -19,11 +17,10 @@
                     <td>{{formatDate errorLog.updatedAt 'long'}}</td>
                     <td>
                         {{#if errorLog.userLogId}}
-                            <a href="/setting/logs/{{errorLog.userLogId}}" class="label label-default">User log</a>
+                            <a href="/dashboard/logs/{{errorLog.userLogId}}" class="label label-default">User log</a>
                         {{/if}}
-                        <a data-type="error" class="label label-{{#if errorLog.fixed}}success{{else}}danger{{/if}}">Fix
-                            error</a>
-                        <a href="/dashboard/errors" class="label label-info">Back</a>
+                        <a data-type="error" class="label label-{{style errorLog.fixed}}">Fix error</a>
+                        {{> backTo}}
                     </td>
                 </tr>
                 <tr>

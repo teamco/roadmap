@@ -1,23 +1,5 @@
 <template name="errorLogsData">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <table class="table error-logs">
-                <thead>
-                <tr>
-                    <th>Error</th>
-                    <th>Type</th>
-                    <th>Reason</th>
-                    <th>Updated at</th>
-                    <th>Show</th>
-                </tr>
-                </thead>
-                <tbody>
-                {{> pages}}
-                </tbody>
-            </table>
-        </div>
-        <div class="panel-footer">{{> pagesNav}}</div>
-    </div>
+    {{> paginationTable heads=getHeads style='error-logs' pages=pages pagesNav=pagesNav}}
 </template>
 
 <template name="errorLogsDataItem">
@@ -26,6 +8,6 @@
         <td>{{errorType}}</td>
         <td>{{reason}}</td>
         <td>{{formatDate updatedAt 'long'}}</td>
-        <td><a href="errors/{{_id}}" class="label label-{{#if fixed}}success{{else}}danger{{/if}}">More info</a></td>
+        <td><a href="errors/{{_id}}" class="label label-{{style fixed}}">More info</a></td>
     </tr>
 </template>

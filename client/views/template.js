@@ -22,13 +22,13 @@ export const subscribe = models => {
  * @param {Number} [levels] How many levels to go up. Default is 1
  * @returns {Blaze.TemplateInstance}
  */
-Blaze.TemplateInstance.prototype.parentTemplate = function (levels) {
+Blaze.TemplateInstance.prototype.parentTemplate = function(levels) {
   let view = this.view;
-  if (typeof levels === "undefined") {
+  if (typeof levels === 'undefined') {
     levels = 1;
   }
   while (view) {
-    if (view.name.substring(0, 9) === "Template." && !(levels--)) {
+    if (view.name.substring(0, 9) === 'Template.' && !(levels--)) {
       return view.templateInstance();
     }
     view = view.parentView;
@@ -56,4 +56,18 @@ Template.registerHelper('fetchCountedTitle', () => {
 Template.registerHelper('fetchTitle', () => {
   FlowRouter.watchPathChange();
   return pageTitle();
+});
+
+Template.registerHelper('redirectToBack', () => {
+  const current = FlowRouter.current();
+  const oldRoute = current.oldRoute;
+  if (oldRoute) {
+    //return oldRoute.path;
+  }
+  try {
+    const path = current.route.path;
+    return path.replace(new RegExp(path.match(/\/:\w+/g, '').pop()), '');
+  } catch (e) {
+    return '/';
+  }
 });

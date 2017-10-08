@@ -9,6 +9,22 @@ Template.errorLogsData.onCreated(() => subscribe(['users', 'userLogs', 'errorLog
 Template.errorLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
 
 /**
+ * @constant HEADS
+ * @type {[string,string,string,string,string]}
+ */
+export const HEADS = ['Error', 'Type', 'Reason', 'Updated at', 'Show'];
+
+/**
+ * @method _style
+ * @param fixed
+ * @returns {string}
+ * @private
+ */
+function _style(fixed) {
+  return fixed ? 'success' : 'danger';
+}
+
+/**
  * @method _filterByUser
  * @param user
  * @returns {Array}
@@ -76,11 +92,9 @@ Template.errorLogData.events({
           errorId: errorId
         },
         function(error, result) {
-
           if (throwError(error)) {
             return false;
           }
-
           Bert.alert(TAPi18n.__('error_fixed'), 'info');
           //Router.go('/dashboard/errors');
         }
@@ -91,7 +105,6 @@ Template.errorLogData.events({
 Template.errorLogsData.onCreated(function() {
   const user = isUserLogs();
   if (user && user._id) {
-
     errorLogPages.set({
       filters: {
         userLogId: {
@@ -103,13 +116,16 @@ Template.errorLogsData.onCreated(function() {
 });
 
 Template.errorLogsData.helpers({
-  errorLogsCount: function() {
-    return runTemplateHelper(Template.errorLogs, 'errorLogsCount');
-  }
+  getHeads: HEADS,
+  errorLogsCount: () => runTemplateHelper(Template.errorLogs, 'errorLogsCount')
 });
 
 Template.errorLogData.helpers({
+  getHeads: HEADS,
+  style: _style,
   errorLog: _getErrorData
 });
 
-Template.errorLogsDataItem.helpers({});
+Template.errorLogsDataItem.helpers({
+  style: _style
+});

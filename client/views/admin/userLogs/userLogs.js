@@ -3,6 +3,10 @@ import {subscribe} from '../../template';
 import {userLog} from '../../../../model/userLog.model';
 import {userLogPages} from '../../../../model/userLog.model';
 
+/**
+ * @instance sharedMethods
+ * @type {{logOwnerEmail: (function(*=)), logId: (function(): (sharedMethods.logId|(function()))), userLog: (function(): {httpHeaders: {}}), isError: sharedMethods.isError}}
+ */
 export const sharedMethods = {
   logOwnerEmail: userId => getUser(userId).profile.email,
   logId: () => FlowRouter.current().params.logId,
@@ -12,10 +16,16 @@ export const sharedMethods = {
   }
 };
 
-Template.userLogsData.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
+/**
+ * @constant HEADS
+ * @type {[string,string,string,string]}
+ */
+export const HEADS = ['User action', 'IP', 'Created at', 'Show'];
+
 Template.userLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
 
 Template.userLogsData.onCreated(() => {
+  subscribe(['users', 'userLogs', 'errorLogs']);
   const user = isUserLogs();
   if (user && user._id) {
     userLogPages.set({
@@ -27,11 +37,13 @@ Template.userLogsData.onCreated(() => {
 });
 
 Template.userLogsData.helpers({
+  getHeads: HEADS,
   isError: sharedMethods.isError,
   userLogsCount: () => runTemplateHelper(Template.userLogs, 'userLogsCount')
 });
 
 Template.userLogsDataItem.helpers({
+  style: id => sharedMethods.isError(id) ? 'danger' : 'info',
   logOwnerEmail: sharedMethods.logOwnerEmail,
   isError: sharedMethods.isError
 });
