@@ -1,6 +1,4 @@
-import {isUserLogs} from '../../../../lib/utils';
-import {getUser} from '../../../../lib/utils';
-import {runTemplateHelper} from '../../../../lib/utils';
+import {isUserLogs, getUser, runTemplateHelper} from '../../../../lib/utils';
 import {subscribe} from '../../template';
 import {userLog} from '../../../../model/userLog.model';
 import {userLogPages} from '../../../../model/userLog.model';

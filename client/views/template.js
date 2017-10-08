@@ -6,12 +6,32 @@ import {templateName} from '../../lib/utils';
  * @method subscribe
  * @param models
  */
-export const subscribe = modules => {
-  if (typeof modules === 'string') {
-    modules = [modules];
+export const subscribe = models => {
+  if (typeof models === 'string') {
+    models = [models];
   }
-  for (let i = 0; i < modules.length; i++) {
-    Meteor.subscribe(modules[i]);
+  for (let i = 0; i < models.length; i++) {
+    Meteor.subscribe(models[i]);
+  }
+};
+
+/**
+ * Get the parent template instance
+ * @method parentTemplate
+ * @memberOf Blaze.TemplateInstance
+ * @param {Number} [levels] How many levels to go up. Default is 1
+ * @returns {Blaze.TemplateInstance}
+ */
+Blaze.TemplateInstance.prototype.parentTemplate = function (levels) {
+  let view = this.view;
+  if (typeof levels === "undefined") {
+    levels = 1;
+  }
+  while (view) {
+    if (view.name.substring(0, 9) === "Template." && !(levels--)) {
+      return view.templateInstance();
+    }
+    view = view.parentView;
   }
 };
 
@@ -22,6 +42,7 @@ Template.registerHelper('formatDate', (date, format) => {
 });
 
 Template.registerHelper('fetchCountedTitle', () => {
+  FlowRouter.watchPathChange();
   let title = pageTitle();
   const name = templateName();
   try {
@@ -32,4 +53,7 @@ Template.registerHelper('fetchCountedTitle', () => {
   }
 });
 
-Template.registerHelper('fetchTitle', () => pageTitle());
+Template.registerHelper('fetchTitle', () => {
+  FlowRouter.watchPathChange();
+  return pageTitle();
+});

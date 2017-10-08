@@ -1,4 +1,4 @@
-import {throwError} from '../../lib/utils';
+import {runTemplateHelper, throwError} from '../../lib/utils';
 
 FlowRouter.route('/', {
   action: function() {
@@ -17,7 +17,6 @@ FlowRouter.route('/pageTwo', {
     BlazeLayout.render('adminLayout', {content: 'pageTwo'});
   }
 });
-
 
 /**
  * @method updateUserLog

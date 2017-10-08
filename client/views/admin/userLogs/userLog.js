@@ -1,7 +1,6 @@
 import {sharedMethods} from './userLogs';
 
 Template.userLogData.helpers({
-  updateTitle: () => 'x',
   logOwnerEmail: sharedMethods.logOwnerEmail,
   isError: sharedMethods.isError,
   userLog: () => sharedMethods.userLog(),

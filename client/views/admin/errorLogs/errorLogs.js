@@ -1,7 +1,4 @@
-import {isUserLogs} from '../../../../lib/utils';
-import {is403} from '../../../../lib/utils';
-import {throwError} from '../../../../lib/utils';
-import {runTemplateHelper} from '../../../../lib/utils';
+import {isUserLogs, is403, throwError, runTemplateHelper} from '../../../../lib/utils';
 import {subscribe} from '../../template';
 import {userLog} from '../../../../model/userLog.model';
 import {errorLog} from '../../../../model/errorLog.model';

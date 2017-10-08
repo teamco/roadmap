@@ -10,47 +10,60 @@
 // FlowRouter.route('/dashboard/users/:userId', function () {
 //     this.render('editUser');
 // });
-FlowRouter.route('/dashboard', {
+function checkLoggedIn (ctx, redirect) {
+  if (!Meteor.userId()) {
+    redirect('/')
+  }
+}
+
+const privateRoutes = FlowRouter.group({
+  name: 'private',
+  triggersEnter: [
+    checkLoggedIn
+  ]
+});
+
+privateRoutes.route('/dashboard', {
   action: () => BlazeLayout.render('adminLayout', {content: 'adminDashboard'}),
   name: 'dashboard'
 });
 
-FlowRouter.route('/dashboard/errors', {
+privateRoutes.route('/dashboard/errors', {
   action: () => BlazeLayout.render('adminLayout', {content: 'errorLogsData'}),
   name: 'errorLog'
 });
 
-FlowRouter.route('/dashboard/errors/:errorId', {
+privateRoutes.route('/dashboard/errors/:errorId', {
   action: () => BlazeLayout.render('adminLayout', {content: 'errorLogData'}),
   name: 'errorLog'
 });
 
-FlowRouter.route('/dashboard/users/:userId/errors', {
+privateRoutes.route('/dashboard/users/:userId/errors', {
   action: () => BlazeLayout.render('adminLayout', {content: 'errorLogsData'}),
   name: 'errorLog'
 });
 
-FlowRouter.route('/dashboard/users/:userId/errors/:errorId', {
+privateRoutes.route('/dashboard/users/:userId/errors/:errorId', {
   action: () => BlazeLayout.render('adminLayout', {content: 'errorLogData'}),
   name: 'errorLog'
 });
 
-FlowRouter.route('/dashboard/logs', {
+privateRoutes.route('/dashboard/logs', {
   action: () => BlazeLayout.render('adminLayout', {content: 'userLogsData'}),
   name: 'userLog'
 });
 
-FlowRouter.route('/dashboard/logs/:logId', {
+privateRoutes.route('/dashboard/logs/:logId', {
   action: () => BlazeLayout.render('adminLayout', {content: 'userLogData'}),
   name: 'userLog'
 });
 
-FlowRouter.route('/dashboard/users/:userId/logs', {
+privateRoutes.route('/dashboard/users/:userId/logs', {
   action: () => BlazeLayout.render('adminLayout', {content: 'userLogsData'}),
   name: 'userLog'
 });
 
-FlowRouter.route('/dashboard/users/:userId/logs/:logId', {
+privateRoutes.route('/dashboard/users/:userId/logs/:logId', {
   action: () => BlazeLayout.render('adminLayout', {content: 'userLogData'}),
   name: 'userLog'
 });
