@@ -1,8 +1,9 @@
 import {isUserLogs} from '../../../../lib/utils';
 import {getUser} from '../../../../lib/utils';
 import {runTemplateHelper} from '../../../../lib/utils';
-import {userLogPages} from '../../../../model/userLog.model';
+import {subscribe} from '../../template';
 import {userLog} from '../../../../model/userLog.model';
+import {userLogPages} from '../../../../model/userLog.model';
 
 export const sharedMethods = {
   logOwnerEmail: userId => getUser(userId).profile.email,
@@ -12,6 +13,9 @@ export const sharedMethods = {
     //return ErrorLog.findOne({userLogId: sharedMethods.logId() || logId});
   }
 };
+
+Template.userLogsData.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
+Template.userLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
 
 Template.userLogsData.onCreated(() => {
   const user = isUserLogs();
@@ -33,8 +37,3 @@ Template.userLogsDataItem.helpers({
   logOwnerEmail: sharedMethods.logOwnerEmail,
   isError: sharedMethods.isError
 });
-
-Meteor.subscribe('users');
-Meteor.subscribe('userLogs');
-
-// Meteor.subscribe('errorLogs');

@@ -4,7 +4,9 @@ import {userLog} from '../../../model/userLog.model';
 import {errorLog} from '../../../model/errorLog.model';
 
 Template.adminDashboard.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
+Template.logManager.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
 Template.usersManagement.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
+Template.userLogs.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
 Template.errorLogs.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
 
 Template.usersManagement.helpers({

@@ -1,9 +1,5 @@
 <template name="errorLogData">
-
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Error log</h3>
-        </div>
         <div class="panel-body">
             <table class="table error-logs">
                 <thead>
@@ -27,23 +23,20 @@
                         {{/if}}
                         <a data-type="error" class="label label-{{#if errorLog.fixed}}success{{else}}danger{{/if}}">Fix
                             error</a>
-                        <a href="/setting/errors" class="label label-info">Back</a>
+                        <a href="/dashboard/errors" class="label label-info">Back</a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="5">
-
                         <p>
                             <span class="label">Created at</span>
                             {{formatDate errorLog.createdAt 'long'}}
                         </p>
-
-                        <pre>{{errorLog.stack}}</pre>
+                        <pre class="error">{{errorLog.stack}}</pre>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
 </template>

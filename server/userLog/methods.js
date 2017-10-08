@@ -7,11 +7,10 @@ Meteor.methods({
    * @param url
    * @returns {*}
    */
-  updateUserLog: url => {
-
+  updateUserLog: function(url) {
     const connection = this.connection;
 
-    if ((url || '').match(/logs/) || !connection) {
+    if ((url || '').match(/logs/)) {
       return false;
     }
 

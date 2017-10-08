@@ -7,7 +7,7 @@ Meteor.methods({
    * @method createErrorLog
    * @param error
    */
-  createErrorLog: error => {
+  createErrorLog: function(error) {
 
     error.createdAt = new Date();
     error.updatedAt = new Date();
@@ -26,7 +26,7 @@ Meteor.methods({
    * @method updateErrorLog
    * @param opts
    */
-  updateErrorLog: opts => {
+  updateErrorLog: function(opts) {
     errorLog.update(
         {_id: opts.errorId}, {
           $set: {

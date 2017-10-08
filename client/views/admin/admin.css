@@ -3,6 +3,12 @@
     display: flex;
 }
 
+pre.error {
+    max-width: 90%;
+    max-height: 400px;
+    overflow: auto;
+}
+
 span.label {
     margin-right: 10px;
 }

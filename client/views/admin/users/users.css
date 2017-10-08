@@ -46,10 +46,6 @@ label[for="user-roles"] {
     width: 100%;
 }
 
-.panel {
-    margin-top: 2em;
-}
-
 div.show-user .input-group-addon {
     min-width: 10em;
     text-align: left;

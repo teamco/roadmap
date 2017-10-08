@@ -1,102 +1,118 @@
-function _filterByUser(user) {
+import {isUserLogs} from '../../../../lib/utils';
+import {is403} from '../../../../lib/utils';
+import {throwError} from '../../../../lib/utils';
+import {runTemplateHelper} from '../../../../lib/utils';
+import {subscribe} from '../../template';
+import {userLog} from '../../../../model/userLog.model';
+import {errorLog} from '../../../../model/errorLog.model';
+import {errorLogPages} from '../../../../model/errorLog.model';
 
-    return _.map(
-        userLog.find({userId: user._id}).fetch(),
-        function (log) {
-            return log._id;
-        }
-    );
+Template.errorLogData.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
+Template.errorLogsData.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
+Template.errorLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
+
+/**
+ * @method _filterByUser
+ * @param user
+ * @returns {Array}
+ * @private
+ */
+function _filterByUser(user) {
+  return _.map(
+      userLog.find({userId: user._id}).fetch(),
+      function(log) {
+        return log._id;
+      }
+  );
 }
 
+/**
+ * @method _getErrorData
+ * @param errorId
+ * @returns {any | Promise | *}
+ * @private
+ */
 function _getErrorData(errorId) {
+  const user = isUserLogs();
+  let failed = '/dashboard/errors';
+  let error;
 
-    var user = isUserLogs(),
-        error,
-        failed = '/setting/errors';
+  errorId = errorId || FlowRouter.current().params.errorId;
 
-    // errorId = errorId || Router.current().params.errorId;
+  if (user && user._id) {
+    error = errorLog.findOne({
+      _id: errorId,
+      userLogId: {
+        $in: _filterByUser(user)
+      }
+    });
 
-    if (user && user._id) {
-
-        error = errorLog.findOne({
-            _id: errorId,
-            userLogId: {
-                $in: _filterByUser(user)
-            }
-        });
-
-        if (!error) {
-            failed = '/setting/users/' + user._id + '/errors';
-        }
+    if (!error) {
+      failed = '/dashboard/users/' + user._id + '/errors';
     }
+  } else {
+    error = errorLog.findOne(errorId);
+  }
 
-    error = ErrorLog.findOne(errorId);
+  if (error) {
+    return error;
+  }
 
-    if (error) {
-        return error;
-    }
-
-    return is403(errorId, failed);
+  return is403(errorId, failed);
 }
 
 Template.errorLogData.events({
-    'click a[data-type="error"]': function (event) {
+  'click a[data-type="error"]': function(event) {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        // var errorId = Router.current().params.errorId,
-        //     errorLog = ErrorLog.findOne(errorId);
+    // var errorId = Router.current().params.errorId,
+    //     errorLog = ErrorLog.findOne(errorId);
 
-        if (errorLog.fixed) {
-            Bert.alert(TAPi18n.__('error_already_fixed'), 'warning');
-            return false;
-        }
-
-        Meteor.call(
-            'updateErrorLog', {
-                errorId: errorId
-            },
-            function (error, result) {
-
-                if (throwError(error)) {
-                    return false;
-                }
-
-                Bert.alert(TAPi18n.__('error_fixed'), 'info');
-                //Router.go('/setting/errors');
-            }
-        );
+    if (errorLog.fixed) {
+      Bert.alert(TAPi18n.__('error_already_fixed'), 'warning');
+      return false;
     }
+
+    Meteor.call(
+        'updateErrorLog', {
+          errorId: errorId
+        },
+        function(error, result) {
+
+          if (throwError(error)) {
+            return false;
+          }
+
+          Bert.alert(TAPi18n.__('error_fixed'), 'info');
+          //Router.go('/dashboard/errors');
+        }
+    );
+  }
 });
 
-Template.errorLogsData.onCreated(function () {
+Template.errorLogsData.onCreated(function() {
+  const user = isUserLogs();
+  if (user && user._id) {
 
-    var user = isUserLogs();
-
-    if (user && user._id) {
-
-        ErrorLogPages.set({
-            filters: {
-                userLogId: {
-                    $in: _filterByUser(user)
-                }
-            }
-        });
-    }
+    errorLogPages.set({
+      filters: {
+        userLogId: {
+          $in: _filterByUser(user)
+        }
+      }
+    });
+  }
 });
 
 Template.errorLogsData.helpers({
-    errorLogsCount: function () {
-        return runTemplateHelper(Template.errorLogs, 'errorLogsCount');
-    }
+  errorLogsCount: function() {
+    return runTemplateHelper(Template.errorLogs, 'errorLogsCount');
+  }
 });
 
 Template.errorLogData.helpers({
-    errorLog: _getErrorData
+  errorLog: _getErrorData
 });
 
 Template.errorLogsDataItem.helpers({});
-
-Meteor.subscribe("users");
-Meteor.subscribe("userLogs");
-Meteor.subscribe("errorLogs");
