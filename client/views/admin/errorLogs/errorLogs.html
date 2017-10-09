@@ -8,6 +8,6 @@
         <td>{{errorType}}</td>
         <td>{{reason}}</td>
         <td>{{formatDate updatedAt 'long'}}</td>
-        <td><a href="errors/{{_id}}" class="label label-{{style fixed}}">More info</a></td>
+        <td>{{> moreInfoLink linkTo='errors' id=_id style=style}}</td>
     </tr>
 </template>

@@ -5,7 +5,7 @@ import {errorLog} from '../../../model/errorLog.model';
 
 Template.adminDashboard.onCreated(() => subscribe(['users', 'userStatus', 'userLogs', 'errorLogs']));
 
-Template.usersManagement.helpers({
+Template.usersDashboard.helpers({
 
   /**
    * @method registeredUsers
@@ -25,12 +25,10 @@ Template.usersManagement.helpers({
  */
 function _logUrl(path) {
   const user = isUserLogs();
-  return user ?
-      ('/dashboard/users/' + user._id + path) :
-      ('/dashboard' + path);
+  return user ? ('users/' + user._id + path) : path;
 }
 
-Template.userLogs.helpers({
+Template.logManager.helpers({
 
   /**
    * @method userLogsCount
@@ -46,10 +44,7 @@ Template.userLogs.helpers({
   /**
    * @method userLogsUrl
    */
-  userLogsUrl: () => _logUrl('/logs')
-});
-
-Template.errorLogs.helpers({
+  userLogsUrl: () => _logUrl('logs'),
 
   /**
    * @method errorLogsCount
@@ -76,5 +71,5 @@ Template.errorLogs.helpers({
   /**
    * @method errorLogsUrl
    */
-  errorLogsUrl: () => _logUrl('/errors')
+  errorLogsUrl: () => _logUrl('errors')
 });

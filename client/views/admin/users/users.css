@@ -1,9 +1,12 @@
 td.user-info img {
-    border: 1px solid #333;
+    border: 2px solid #fff;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     margin-right: 10px;
+    display: inline-block;
+    overflow: hidden;
+    box-shadow: 1px 1px 5px #333;
 }
 
 .table.user-data > tbody > tr > td {

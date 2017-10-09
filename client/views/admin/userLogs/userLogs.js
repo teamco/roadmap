@@ -47,7 +47,9 @@ Template.userLogsData.helpers({
 Template.userLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
 
 Template.userLogsDataItem.helpers({
-  style: id => sharedMethods.isError(id) ? 'danger' : 'info',
+  style: function() {
+    return sharedMethods.isError(this._id) ? 'danger' : 'info';
+  },
   logOwnerEmail: sharedMethods.logOwnerEmail,
   isError: sharedMethods.isError
 });

@@ -10,6 +10,6 @@
         </td>
         <td>{{clientAddress}}</td>
         <td>{{formatDate createdAt 'long'}}</td>
-        <td><a href="logs/{{_id}}" class="label label-{{style _id}}">More info</a></td>
+        <td>{{> moreInfoLink linkTo='logs' id=_id style=style}}</td>
     </tr>
 </template>
