@@ -9,11 +9,11 @@ td.user-info img {
     box-shadow: 1px 1px 5px #333;
 }
 
-.table.user-data > tbody > tr > td {
+.table.user-data td {
     vertical-align: middle;
 }
 
-.table.user-data > tbody > tr > td:last-child {
+.table.user-data td:last-child {
     white-space: nowrap;
 }
 
