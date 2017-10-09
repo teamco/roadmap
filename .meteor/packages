@@ -30,7 +30,6 @@ zimme:active-route
 dynamic-import
 ecmascript
 accounts-ui
-accounts-password
 accounts-facebook
 accounts-google
 service-configuration
@@ -45,3 +44,5 @@ jparker:gravatar
 mizzao:user-status
 jamiter:pluralize
 underscorestring:underscore.string
+tsega:bootstrap3-datetimepicker
+theduke:bootstrap-modal-prompt

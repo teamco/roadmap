@@ -31,42 +31,9 @@ function _logUrl(path) {
 Template.logManager.helpers({
 
   /**
-   * @method userLogsCount
-   * @returns {any}
-   */
-  userLogsCount: () => {
-    const user = isUserLogs();
-    return user ?
-        userLog.find({userId: user._id}).count() :
-        userLog.find().count();
-  },
-
-  /**
    * @method userLogsUrl
    */
   userLogsUrl: () => _logUrl('logs'),
-
-  /**
-   * @method errorLogsCount
-   * @returns {any}
-   */
-  errorLogsCount: () => {
-    const user = isUserLogs();
-    if (user && user._id) {
-      return errorLog.find({
-        userLogId: {
-          $in: _.map(
-              userLog.find({userId: user._id}).fetch(),
-              function(log) {
-                return log._id;
-              }
-          )
-        }
-      }).count();
-    }
-
-    return errorLog.find().count();
-  },
 
   /**
    * @method errorLogsUrl

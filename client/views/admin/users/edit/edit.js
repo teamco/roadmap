@@ -1,4 +1,7 @@
 import {getUser, getUserProfile, getUserRoles, getUserName} from '../../../../../lib/utils';
+import {subscribe} from '../../../template';
+
+Template.editUser.onCreated(() => subscribe(['users', 'userStatus', 'profile', 'roles']));
 
 Template.editUser.onRendered(function() {
   this.$('.datetimepicker').datetimepicker({
@@ -87,6 +90,3 @@ Template.editUser.helpers({
     };
   }
 });
-
-Meteor.subscribe('profile');
-Meteor.subscribe('roles');

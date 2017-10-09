@@ -117,7 +117,28 @@ Template.errorLogsData.onCreated(function() {
 
 Template.errorLogsData.helpers({
   getHeads: HEADS,
-  errorLogsCount: () => runTemplateHelper(Template.errorLogs, 'errorLogsCount')
+
+  /**
+   * @method errorLogsCount
+   * @returns {any}
+   */
+  errorLogsCount: () => {
+    const user = isUserLogs();
+    if (user && user._id) {
+      return errorLog.find({
+        userLogId: {
+          $in: _.map(
+              userLog.find({userId: user._id}).fetch(),
+              function(log) {
+                return log._id;
+              }
+          )
+        }
+      }).count();
+    }
+
+    return errorLog.find().count();
+  }
 });
 
 Template.errorLogData.helpers({

@@ -1,10 +1,23 @@
+import {googleProfile} from './_providers/google';
+
 const admins = ['teamco@gmail.com'];
-const candidates = [];
+const managers = [];
+
+/**
+ * @method _inRole
+ * @param role
+ * @param email
+ * @returns {boolean}
+ * @private
+ */
+function _inRole(role, email) {
+  return role.indexOf(email) > -1;
+}
 
 /**
  * @method _defineRoles
  * @param user
- * @param roles
+ * @param {Array} roles
  * @private
  */
 function _defineRoles(user, roles) {
@@ -38,13 +51,7 @@ function _getProviderInfo(provider, user) {
       };
       break;
     case 'google':
-      opts = {
-        name: info.name,
-        email: info.email,
-        link: '',
-        locale: info.locale,
-        picture: info.picture
-      };
+      opts = googleProfile(user, info);
       break;
     case 'twitter':
       opts = {
@@ -78,13 +85,9 @@ Accounts.onCreateUser((options, user) => {
   options.profile.updatedAt = user.createdAt;
   user.profile = options.profile;
 
-  if (admins.indexOf(auth.email) > -1) {
-    _defineRoles(user, ['admin']);
-  } else if (candidates.indexOf(auth.email) > -1) {
-    _defineRoles(user, ['candidate']);
-  } else {
-    _defineRoles(user, ['end-user']);
-  }
+  if (_inRole(admins, auth.email)) _defineRoles(user, ['admin']);
+  else if (_inRole(managers, auth.email)) _defineRoles(user, ['manager']);
+  else _defineRoles(user, ['end-user']);
 
   return user;
 });

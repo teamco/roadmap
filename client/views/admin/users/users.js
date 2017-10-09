@@ -12,7 +12,7 @@ Template.userData.events({
     BootstrapModalPrompt.prompt({
       title: TAPi18n.__('user_delete'),
       content: TAPi18n.__('confirm_user_delete', name)
-    }, function(confirmed) {
+    }, confirmed => {
       if (confirmed) {
 
         // if (isCurrentUser(user._id)) {
@@ -33,13 +33,9 @@ Template.userData.events({
 
 // This code only runs on the client
 Template.userData.helpers({
-  usersCount: function() {
-    return Accounts.users.find().count();
-  },
-  allUsers: function() {
-    return Accounts.users.find().fetch();
-  },
-  labelClass: function(_id) {
+  usersCount: () => Accounts.users.find().count(),
+  allUsers: () => Accounts.users.find().fetch(),
+  labelClass: _id => {
     const status = Accounts.users.findOne(_id).status;
     let style = 'label-default';
     if (status && status.idle) style = 'label-warning';

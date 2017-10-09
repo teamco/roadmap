@@ -41,12 +41,12 @@ Template.registerHelper('formatDate', (date, format) => {
   return moment(date).format(format);
 });
 
-Template.registerHelper('fetchCountedTitle', () => {
+Template.registerHelper('fetchCountedTitle', function() {
   FlowRouter.watchPathChange();
   let title = pageTitle();
   const name = templateName();
   try {
-    const counter = runTemplateHelper(Template[name], name + 'Count');
+    const counter = runTemplateHelper(Template[this.content()], name + 'Count');
     return [title, counter].join(': ');
   } catch (e) {
     return 'Admin Dashboard';

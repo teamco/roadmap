@@ -39,9 +39,20 @@ Template.userLink.helpers({
 });
 
 Template.userLogsData.helpers({
+
+  /**
+   * @method userLogsCount
+   * @returns {any}
+   */
+  userLogsCount: () => {
+    const user = isUserLogs();
+    return user ?
+        userLog.find({userId: user._id}).count() :
+        userLog.find().count();
+  },
+
   getHeads: HEADS,
-  isError: sharedMethods.isError,
-  userLogsCount: () => runTemplateHelper(Template.userLogs, 'userLogsCount')
+  isError: sharedMethods.isError
 });
 
 Template.userLogsDataItem.onCreated(() => subscribe(['users', 'userLogs', 'errorLogs']));
